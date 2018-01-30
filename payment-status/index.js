@@ -23,15 +23,40 @@ const http = require('http').Server(panel);
 panel.get('/', (_, response) => {
   response.sendFile(`${__dirname}/panel.html`);
 });
-panel.post('/approve-invoice', (_, response) => {
-  console.log('POST /approve-invoice');
-  connections.forEach(connection => {
-    (currentStatus = PAYMENT_STATUS.APPROVED), connection.send(currentStatus);
-  });
-  response.end();
+panel.get('/favicon.ico', (_, response) => {
+  response.sendFile(`${__dirname}/favicon.ico`);
 });
 
-const port = 9449;
+
+[
+  {
+    route: '/reset',
+    status: PAYMENT_STATUS.PENDING,
+  },
+  {
+    route: '/approve-invoice',
+    status: PAYMENT_STATUS.APPROVED,
+  },
+  {
+    route: '/send-payment',
+    status: PAYMENT_STATUS.SENT,
+  },
+  {
+    route: '/receive-payment',
+    status: PAYMENT_STATUS.RECEIVED,
+  },
+].forEach(({route, status}) => {
+  panel.post(route, (_, response) => {
+    console.log(`POST ${route}`);
+    connections.forEach(connection => {
+      currentStatus = status;
+      connection.send(status);
+    });
+    response.end();
+  });
+});
+
+const port = 9999;
 http.listen(port, () => {
   console.log(`Visit the panel at http://localhost:${port}`);
 });
