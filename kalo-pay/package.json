@@ -1,6 +1,6 @@
 {
     "name": "@kalo/elm-zero-to-one",
-    "version": "1.0.1-unstable",
+    "version": "1.0.2-unstable",
     "scripts": {
         "start": "node index.js"
     },

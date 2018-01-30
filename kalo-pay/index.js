@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 // web socket
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({port: 9339});
@@ -58,5 +60,5 @@ panel.get('/favicon.ico', (_, response) => {
 
 const port = 9999;
 http.listen(port, () => {
-  console.log(`Visit the panel at http://localhost:${port}`);
+  console.log(`Kalo Pay is running at http://localhost:${port}`);
 });
