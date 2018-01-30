@@ -46,9 +46,20 @@
         </div>
         Kalo Pay
     </header>
-    <main>
-        <button class="mdl-button mdl-js-button mdl-js-ripple-effect">
-          approve invoice
-        </button>
-    </main>
+    <main></main>
+    <script>
+        const main = document.querySelector('main');
+        [{
+            action: '/approve-invoice',
+            label: 'approve invoice',
+        }].forEach(({action, label}) => {
+            const button = document.createElement('button');
+            button.className = 'mdl-button mdl-js-button mdl-js-ripple-effect'
+            button.textContent = 'approve invoice';
+            button.addEventListener('click', () => {
+                fetch(action, {method: 'POST'}).catch(error => {throw error});
+            });
+            main.appendChild(button);
+        });
+        </script>
 </body>
