@@ -1,9 +1,10 @@
 const {sample, random} = require('lodash');
 const server = require('http').createServer((request, response) => {
   // Set CORS headers
+  console.log('request', request)
   response.setHeader(
     'Access-Control-Allow-Origin',
-    request.headers.origin || '*'
+    'http://neverssl.com'
   );
   response.setHeader('Access-Control-Request-Method', '*');
   response.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET');
@@ -17,7 +18,10 @@ const server = require('http').createServer((request, response) => {
     return;
   }
 });
-const io = require('socket.io')(server);
+
+const io = require('socket.io')(server, {
+  origins: 'neverssl.com:80'
+});
 
 io.on('connection', client => {
   console.log('someone connected');
@@ -39,7 +43,7 @@ function updateStatus() {
 }
 updateStatus();
 
-const port = 9229;
+const port = 9339;
 server.listen(port, () => {
-  console.log('Listening on http://localhost:9229');
+  console.log(`Listening on http://localhost:${port}`);
 });
