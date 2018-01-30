@@ -1,8 +1,11 @@
 {
     "name": "@kalo/elm-zero-to-one",
-    "version": "1.0.0-unstable",
+    "version": "1.0.1-unstable",
     "scripts": {
         "start": "node index.js"
+    },
+    "bin": {
+        "elm-zero-to-one": "index.js"
     },
     "dependencies": {
         "express": "^4.16.2",
